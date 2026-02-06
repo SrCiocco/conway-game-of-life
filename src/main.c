@@ -12,9 +12,9 @@
 #define SIZE 100
 #define ALIVE 1
 #define DEAD 0
-#define ALIVE_ICON "·" // Bloque sólido cian
-#define DEAD_ICON  " " // Punto tenue para el "vacío"
-#define WAIT 40000
+#define ALIVE_ICON "⚪"
+#define DEAD_ICON  "⚫"
+#define WAIT 100000
 #define CLEAR system("clear");
 
 void populate_matrix(int matrix[SIZE][SIZE]);
@@ -77,10 +77,15 @@ int count_neighbors(int matrix[SIZE][SIZE], int row, int col)
 		for (int j = -1; j <= 1; j++) {
 			if (i == 0 && j == 0) continue; /* We dont count ourselves as a neighbor. */
 
-			int r = row + i;
-			int c = col + j;
+			/* int r = row + i; */
+			/* int c = col + j; */
 
-			if (r >= 0 && r < SIZE && c >= 0 && c < SIZE) neighbors += matrix[r][c];
+			int r = (row + i + SIZE) % SIZE;
+			int c = (col + j + SIZE) % SIZE;
+
+			neighbors += matrix[r][c];
+
+			/* if (r >= 0 && r < SIZE && c >= 0 && c < SIZE) neighbors += matrix[r][c]; */
 		}
 	}
 	return neighbors;
